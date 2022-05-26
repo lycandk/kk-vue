@@ -9,7 +9,7 @@
       <el-input type="password" v-model="loginForm.password" auto-complete="off" placeholder="密码"></el-input>
     </el-form-item>
     <el-form-item style="width: 100%">
-      <el-button type="primary" style="width: 100%;background: #A5CAF1;border: none;  " v-on:click="login" >登录</el-button>
+      <el-button type="primary" style="width: 100%;background: #A5CAF1;border: none; " v-on:click="login" >登录</el-button>
     </el-form-item>
   </el-form>
   </body>
@@ -28,7 +28,16 @@ export default {
     }
   },
   methods: {
+    /** 加入前端拦截器后：
+     * 修改后的逻辑如下：
+     * 1.点击登录按钮，向后端发送数据
+     * 2.受到后端返回的成功代码时，触发 store 中的 login() 方法，把 loginForm 对象传递给 store 中的 user 对象
+     * （*这里只是简单的实现，在后端我们可以通过用户名和密码查询数据库，获得 user 表的完整信息，比如用户昵称、用户级别等，返回前端，并传递给 user 对象，以实现更复杂的功能）
+     * 3.获取登录前页面的路径并跳转，如果该路径不存在，则跳转到首页
+     */
     login () {
+      const _this = this
+      console.log(this.$store.state)
       this.$axios
         .post('/login', {
           username: this.loginForm.username,
@@ -36,7 +45,10 @@ export default {
         })
         .then(successResponse => {
           if (successResponse.data.code === 200) {
-            this.$router.replace({path: '/index'})
+            // var data = this.loginForm
+            _this.$store.commit('login', _this.loginForm)
+            var path = this.$route.query.redirect
+            this.$router.replace({path: path === '/' || path === undefined ? '/index' : path})
           }
         })
         .catch(failResponse => {

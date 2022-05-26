@@ -3,6 +3,8 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+// 引入路由拦截
+import store from './store'
 // 引入ElementUI
 import ElementUI from 'element-ui'
 // 引入CSS
@@ -16,10 +18,28 @@ Vue.config.productionTip = false
 // 使用ElementUI
 Vue.use(ElementUI)
 
+// 使用 router.beforeEach()，意思是在访问每一个路由前调用。
+router.beforeEach((to, from, next) => {
+  if (to.meta.requireAuth) {
+    if (store.state.user.username) {
+      next()
+    } else {
+      next({
+        path: 'login',
+        query: {redirect: to.fullPath}
+      })
+    }
+  } else {
+    next()
+  }
+}
+)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
+  render: h => h(App),
   router,
+  store,
   components: { App },
   template: '<App/>'
 })
