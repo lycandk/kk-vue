@@ -75,7 +75,7 @@ export default {
     color: #505458;
   }
   #poster {
-    background: url("../assets/zhang-kaiyv-qRpvmxoZsek-unsplash.jpg") no-repeat center;
+    background: url("../assets/loginimg/zhang-kaiyv-qRpvmxoZsek-unsplash.jpg") no-repeat center;
     height: 100%;
     width: 100%;
     background-size: cover;

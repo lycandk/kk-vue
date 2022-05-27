@@ -1,0 +1,49 @@
+<template>
+  <el-menu
+    :default-active="$route.path"
+    router
+    mode="horizontal"
+    background-color="white"
+    text-color="#222"
+    active-text-color="red"
+    style="min-width: 1300px">
+    <el-menu-item v-for="(item,i) in navList" :key="i" :index="item.name">
+      {{ item.navItem }}
+    </el-menu-item>
+    <a href="#nowhere" style="color: #222;float: right;padding: 20px;">更多功能</a>
+    <i class="el-icon-menu" style="float:right;font-size: 45px;color: #222;padding-top: 8px"></i>
+    <span style="position: absolute;padding-top: 20px;right: 43%;font-size: 20px;font-weight: bold">Kitty Kitty - Record Your Kitty</span>
+  </el-menu>
+</template>
+
+<script>
+export default {
+  /**
+   * common 文件夹，用来存储公共的组件
+   * 打开 Element 的文档，找到 NavMenu 组件相关内容：
+   * https://element.eleme.cn/2.0/#/zh-CN/component/menu
+   * 主要有顶栏、侧栏两种导航样式，我们选择顶栏型，点击显示代码
+   * <el-menu> 标签中开启了 router 模式: 启用该模式会在激活导航时以index为path进行路由跳转
+   */
+  name: 'NavMenu',
+  data () {
+    return {
+      navList: [
+        {name: '/index', navItem: '猫咖'},
+        {name: '/note', navItem: '猫咪笔记'},
+        {name: '/cats', navItem: '猫咪们'},
+        {name: '/admin', navItem: '个人中心'}
+      ]
+    }
+  }
+}
+</script>
+<style scoped>
+a{
+  text-decoration: none;
+}
+
+span {
+  pointer-events: none;
+}
+</style>
