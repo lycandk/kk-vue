@@ -1,6 +1,6 @@
 <template>
   <div>
-      AppIndex
+    AppIndex
   </div>
 </template>
 

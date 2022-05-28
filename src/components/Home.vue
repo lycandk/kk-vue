@@ -7,6 +7,7 @@
 
 <script>
 import NavMenu from './common/NavMenu'
+
 export default {
   /**
    * -dev-NavMenu

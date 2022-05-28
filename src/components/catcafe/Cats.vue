@@ -2,27 +2,27 @@
   <div>
     <el-row style="height: 840px;">
       <!--<search-bar></search-bar>-->
-      <el-tooltip effect="dark" placement="right"
-                  v-for="item in cats"
-                  :key="item.id">
-        <p slot="content" style="font-size: 14px;margin-bottom: 6px;">{{item.title}}</p>
+      <el-tooltip v-for="item in cats" :key="item.id"
+                  effect="dark"
+                  placement="right">
+        <p slot="content" style="font-size: 14px;margin-bottom: 6px;">{{ item.title }}</p>
         <p slot="content" style="font-size: 13px;margin-bottom: 6px">
-          <span>{{item.nickname}}</span> /
-          <span>{{item.variety}}</span> /
-          <span>{{item.birthdate}}</span>
+          <span>{{ item.nickname }}</span> /
+          <span>{{ item.variety }}</span> /
+          <span>{{ item.birthdate }}</span>
         </p>
-        <p slot="content" style="width: 300px" class="abstract">{{item.abs}}</p>
-        <el-card style="width: 135px;margin-bottom: 20px;height: 233px;float: left;margin-right: 15px" class="book"
-                 bodyStyle="padding:10px" shadow="hover">
+        <p slot="content" class="abstract" style="width: 300px">{{ item.abs }}</p>
+        <el-card bodyStyle="padding:10px" class="book"
+                 shadow="hover" style="width: 135px;margin-bottom: 20px;height: 233px;float: left;margin-right: 15px">
           <div class="cover">
             <img :src="item.cover" alt="封面">
           </div>
           <div class="info">
             <div class="title">
-              <a href="">{{item.title}}</a>
+              <a href="">{{ item.title }}</a>
             </div>
           </div>
-          <div class="nickname">{{item.nickname}}</div>
+          <div class="nickname">{{ item.nickname }}</div>
         </el-card>
       </el-tooltip>
     </el-row>

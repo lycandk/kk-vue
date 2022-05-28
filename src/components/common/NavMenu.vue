@@ -1,12 +1,12 @@
 <template>
   <el-menu
     :default-active="$route.path"
-    router
-    mode="horizontal"
-    background-color="white"
-    text-color="#222"
     active-text-color="red"
-    style="min-width: 1300px">
+    background-color="white"
+    mode="horizontal"
+    router
+    style="min-width: 1300px"
+    text-color="#222">
     <el-menu-item v-for="(item,i) in navList" :key="i" :index="item.name">
       {{ item.navItem }}
     </el-menu-item>
@@ -39,7 +39,7 @@ export default {
 }
 </script>
 <style scoped>
-a{
+a {
   text-decoration: none;
 }
 

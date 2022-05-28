@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-<!--    <img src="./assets/logo.png">-->
+    <!--    <img src="./assets/logo.png">-->
     <router-view/>
   </div>
 </template>
@@ -23,10 +23,11 @@ export default {
   color: #2c3e50;
   margin-top: 0;
 }
+
 /* 在App.vue中加入body样式，使得背景图片四周不会留有空白*/
-body{
-  margin:0;
-  padding:0;
-  border:0
+body {
+  margin: 0;
+  padding: 0;
+  border: 0
 }
 </style>
