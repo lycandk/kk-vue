@@ -48,6 +48,7 @@ export default {
       this.$axios.get(url).then(resp => {
         if (resp.status === 200) {
           _this.$refs.catsArea.cats = resp.data
+          _this.$refs.catsArea.currentPage = 1
         }
       })
     }

@@ -104,6 +104,7 @@ export default {
       }).then(resp => {
         if (resp && resp.status === 200) {
           _this.cats = resp.data
+          _this.currentPage = 1
         }
       })
     },
