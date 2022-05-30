@@ -1,7 +1,7 @@
 <template>
   <el-menu
     active-text-color="red"
-    class="categories"
+    class="varieties"
     default-active="0"
     @select="handleSelect">
     <el-menu-item index="0">
@@ -44,12 +44,28 @@ export default {
   /**
    * 侧边栏组件
    */
-  name: 'SideMenu'
+  name: 'SideMenu',
+  data () {
+    return {
+      vid: ''
+    }
+  },
+  methods: {
+    /**
+     * 实现了点击分类引发查询事件
+     * @param key
+     * @param keyPath
+     */
+    handleSelect (key, keyPath) {
+      this.vid = key
+      this.$emit('indexSelect')
+    }
+  }
 }
 </script>
 
 <style scoped>
-.categories {
+.varieties {
   /**
   在LibraryIndex.vue里面用的是<el-aside>是不用设置位置属性会自动显示在边框位置的。
   因此以下css注释掉

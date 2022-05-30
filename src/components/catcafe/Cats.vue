@@ -1,42 +1,48 @@
 <template>
   <div>
     <el-row style="height: 840px;">
-      <!--<search-bar></search-bar>-->
-      <el-tooltip v-for="item in cats" :key="item.id"
+      <search-bar @onSearch="searchResult" ref="searchBar"></search-bar>
+      <el-tooltip v-for="item in cats.slice((currentPage - 1) *pagesize, currentPage*pagesize)" :key="item.id"
                   effect="dark"
                   placement="right">
-        <p slot="content" style="font-size: 14px;margin-bottom: 6px;">{{ item.title }}</p>
+        <p slot="content" style="font-size: 14px;margin-bottom: 6px;">{{ item.nickname }}</p>
         <p slot="content" style="font-size: 13px;margin-bottom: 6px">
-          <span>{{ item.nickname }}</span> /
-          <span>{{ item.variety }}</span> /
+          <span>{{ item.scientificname }}</span> /
+          <span>{{ item.color}}</span> /
           <span>{{ item.birthdate }}</span>
         </p>
         <p slot="content" class="abstract" style="width: 300px">{{ item.abs }}</p>
-        <el-card bodyStyle="padding:10px" class="book"
+        <el-card bodyStyle="padding:10px" class="cat"
                  shadow="hover" style="width: 135px;margin-bottom: 20px;height: 233px;float: left;margin-right: 15px">
-          <div class="cover">
-            <img :src="item.cover" alt="封面">
+          <div class="cover" @click="editCat(item)">
+            <img :src="item.cover" alt="猫咪图片">
           </div>
           <div class="info">
-            <div class="title">
-              <a href="">{{ item.title }}</a>
+            <div class="nickname">
+              <a href="">{{ item.nickname }}</a>
             </div>
+            <i class="el-icon-delete" @click="deleteCat(item.id)"></i>
           </div>
-          <div class="nickname">{{ item.nickname }}</div>
+          <div class="variety">{{ item.varieties.name}}</div>
         </el-card>
       </el-tooltip>
+      <edit-form @onSubmit="loadCats()" ref="edit"></edit-form>
     </el-row>
     <el-row>
       <el-pagination
-        :current-page="1"
-        :page-size="10"
-        :total="20">
+        @current-change="handleCurrentChange"
+        :current-page="currentPage"
+        :page-size="pagesize"
+        :total="cats.length">
       </el-pagination>
     </el-row>
   </div>
 </template>
 
 <script>
+import EditForm from './EditForm'
+import SearchBar from './SearchBar'
+
 export default {
   /**
    * 此组件用于显示图书
@@ -48,27 +54,100 @@ export default {
    * 分页使用 el-pagination 组件，目前只是样式。
    * 把 Books 组件放在 CatCafeIndex.vue 中
    */
+  /** 前端核心功能
+   * 添加搜索框
+   * 添加增加、删除按钮
+   * 完善分页功能
+   * 构造增、删、改、查对应的请求
+   */
   name: 'Cats',
+  components: {EditForm, SearchBar},
   data () {
     return {
-      cats: [
-        {
-          cover: require('../../assets/cats/美短.png'),
-          nickname: '虎虎',
-          variety: '美短',
-          scientificname: '美国短毛猫',
-          latinname: 'American Shorthair',
-          placeoforigin: '美国',
-          color: '银色条纹',
-          birthdate: '2022-1-1',
-          abs: '美国最早的家猫据说是随17世纪的移民来到新大陆的猫咪，接下来的几个世纪里，壮实而具有工作效率的猫咪扩散到整个美国，' +
-            '它们大多是熟练的捕鼠能手而非家庭宠物。但到了20世纪初，一种庭院捕鼠猫的改良品种开始出现，被称为短毛家猫。' +
-            '人们精心的繁育进一步改良了家猫品种，到20世纪60年代，该品种被更名为美国短毛猫，逐渐在纯种猫咪展览上吸引人们的注意力。' +
-            '美国短毛猫健康而且性格坚忍，是适合几乎任何类型家庭的完美宠物。' +
-            '美国短毛猫素以体格魁伟，骨骼粗壮，肌肉发达，生性聪明，性格温顺著称，是短毛猫类中大型品种。被毛厚密，毛色多达30种，' +
-            '其中以银色条纹品种最为名贵'
+      cats: [],
+      currentPage: 1,
+      pagesize: 17
+    }
+  },
+  mounted: function () {
+    /**
+     * 打开页面，默认查询出所有图书并显示（即页面的初始化）
+     * Vue 的 钩子函数 —— mounted。
+     * mounted 即 “已挂载” ，所谓挂载，就是我们写的 Vue 代码被转换为 HTML 并替换相应的 DOM 这个过程，
+     * 这个过程完事儿的时候，就会执行 mounted 里面的代码
+     */
+    this.loadCats()
+  },
+  methods: {
+    /**
+     * 加载所有猫咪信息
+     */
+    loadCats () {
+      const _this = this
+      this.$axios.get('/cats').then(resp => {
+        if (resp && resp.status === 200) {
+          _this.cats = resp.data
         }
-      ]
+      })
+    },
+    handleCurrentChange: function (currentPage) {
+      this.currentPage = currentPage
+      console.log(this.currentPage)
+    },
+    /**
+     * 通过onSearch事件触发
+     * 实现的只是初级的模糊查询，只能搜索出完全包含关键字的内容，而且顺序不能变。可改进
+     */
+    searchResult () {
+      const _this = this
+      this.$axios.get('/search?keyword=' + this.$refs.searchBar.keyword, {
+      }).then(resp => {
+        if (resp && resp.status === 200) {
+          _this.cats = resp.data
+        }
+      })
+    },
+    deleteCat (id) {
+      this.$confirm('此操作将删除该猫咪信息，无法找回, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$axios.post('/delete', {id: id}).then(resp => {
+          if (resp && resp.status === 200) {
+            this.loadCats()
+          }
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
+      // alert(id)
+    },
+    /**
+     * 负责弹出修改表单并渲染数据
+     * @param item
+     */
+    editCat (item) {
+      this.$refs.edit.dialogFormVisible = true
+      this.$refs.edit.form = {
+        id: item.id,
+        nickname: item.nickname,
+        cover: item.cover,
+        variety: item.variety,
+        color: item.color,
+        birthdate: item.birthdate,
+        scientificname: item.scientificname,
+        latinname: item.latinname,
+        placeoforigin: item.placeoforigin,
+        abs: item.abs,
+        varieties: {
+          id: item.varieties.id.toString(),
+          name: item.varieties.name
+        }
+      }
     }
   }
 }
@@ -89,12 +168,12 @@ img {
   /*margin: 0 auto;*/
 }
 
-.title {
+.nickname {
   font-size: 14px;
   text-align: left;
 }
 
-.nickname {
+.variety {
   color: #333;
   width: 102px;
   font-size: 13px;
@@ -105,6 +184,17 @@ img {
 .abstract {
   display: block;
   line-height: 17px;
+}
+.el-icon-delete {
+  cursor: pointer;
+  float: right;
+}
+
+.switch {
+  display: flex;
+  position: absolute;
+  left: 780px;
+  top: 25px;
 }
 
 a {
