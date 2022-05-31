@@ -11,6 +11,7 @@
         </el-form-item>
         <el-form-item label="图片" :label-width="formLabelWidth" prop="cover">
           <el-input v-model="form.cover" autocomplete="off" placeholder="图片 URL"></el-input>
+          <ImgUpload @onUpload="uploadImag" ref="imgUpload"></ImgUpload>
         </el-form-item>
         <el-form-item label="品种" :label-width="formLabelWidth" prop="variety">
           <el-input v-model="form.variety" autocomplete="off"></el-input>
@@ -56,12 +57,14 @@
   </div>
 </template>
 
-<script>
-/**
+<script>/**
  此组件增加或者修改图书的弹出表单
  */
+import ImgUpload from './ImgUpload'
+
 export default {
   name: 'EditForm',
+  components: {ImgUpload},
   data () {
     return {
       dialogFormVisible: false,
@@ -106,6 +109,8 @@ export default {
           name: ''
         }
       }
+      // 此处解决没有触发到ImgUpload中的clear方法，导致上传后关闭结果未被清空的问题
+      this.$refs.imgUpload.clear()
     },
     /**
      * 核心的方法是 onSubmit，提交数据，并触发父组件中定义的 onSubmit 事件，
@@ -131,6 +136,12 @@ export default {
             this.$emit('onSubmit')
           }
         })
+    },
+    /**
+     * 引用ImgUpload里面的data中的url
+     */
+    uploadImag () {
+      this.form.cover = this.$refs.imgUpload.url
     }
   }
 }
