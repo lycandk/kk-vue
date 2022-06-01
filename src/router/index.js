@@ -4,6 +4,7 @@ import Login from '../components/Login'
 import AppIndex from '../components/home/AppIndex'
 import Home from '../components/Home'
 import CatCafeIndex from '../components/catcafe/CatCafeIndex'
+import Register from '../components/Register'
 
 Vue.use(Router)
 // 为区分是否需要拦截,在需要拦截的路由中加一条元数据，设置一个 requireAuth 字段
@@ -42,9 +43,23 @@ export default new Router({
       ]
     },
     {
+      path: '/',
+      name: 'index',
+      redirect: '/index',
+      component: AppIndex,
+      meta: {
+        requireAuth: true
+      }
+    },
+    {
       path: '/login',
       name: 'Login',
       component: Login
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: Register
     }
   ]
 })

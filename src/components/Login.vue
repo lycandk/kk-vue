@@ -10,6 +10,7 @@
     </el-form-item>
     <el-form-item style="width: 100%">
       <el-button style="width: 100%;background: #A5CAF1;border: none; " type="primary" v-on:click="login">登录</el-button>
+      <router-link to="register"><el-button type="primary" style="width: 100%;background: #A5CAF1;border: none; ">注册</el-button> </router-link>
     </el-form-item>
   </el-form>
   </body>
