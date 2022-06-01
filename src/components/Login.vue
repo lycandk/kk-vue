@@ -47,9 +47,16 @@ export default {
         .then(successResponse => {
           if (successResponse.data.code === 200) {
             // var data = this.loginForm
+            this.$alert('登录成功', '提示', {
+              confirmButtonText: '确定'
+            })
             _this.$store.commit('login', _this.loginForm)
-            var path = this.$route.query.redirect
+            const path = this.$route.query.redirect
             this.$router.replace({path: path === '/' || path === undefined ? '/index' : path})
+          } else {
+            this.$alert(successResponse.data.message, '提示', {
+              confirmButtonText: '确定'
+            })
           }
         })
         .catch(failResponse => {
