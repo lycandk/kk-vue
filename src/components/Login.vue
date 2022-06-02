@@ -8,6 +8,8 @@
     <el-form-item>
       <el-input v-model="loginForm.password" auto-complete="off" placeholder="密码" type="password"></el-input>
     </el-form-item>
+    <el-checkbox class="login_remember" v-model="checked"
+                 label-position="left"><span style="color: #505458">记住密码</span></el-checkbox>
     <el-form-item style="width: 100%">
       <el-button style="width: 100%;background: #A5CAF1;border: none; " type="primary" v-on:click="login">登录</el-button>
       <router-link to="register"><el-button type="primary" style="width: 100%;background: #A5CAF1;border: none; ">注册</el-button> </router-link>
@@ -21,6 +23,7 @@ export default {
   name: 'Login',
   data () {
     return {
+      checked: true,
       loginForm: {
         username: 'admin',
         password: ''

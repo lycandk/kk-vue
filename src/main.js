@@ -23,11 +23,13 @@ Vue.use(ElementUI)
 router.beforeEach((to, from, next) => {
   if (to.meta.requireAuth) {
     if (store.state.user) {
+      // 访问每个页面前都向后端发送一个请求，目的是经由拦截器验证服务器端的登录状态
       axios.get('/authentication').then(response => {
         console.log(response)
         if (response.data) {
           next()
         } else {
+          console.log(response)
           next({
             path: 'login',
             query: {
