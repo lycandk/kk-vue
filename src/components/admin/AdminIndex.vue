@@ -1,7 +1,7 @@
 <template>
   <el-container id="admin-body">
     <el-header style="z-index: 1;height: 80px;margin-left: -20px">
-<!--      <Header style="position: absolute;width: 98%;"></Header>-->
+      <Header style="position: absolute;width: 98%;"></Header>
     </el-header>
     <!--<el-row style="height: 100%;">-->
     <el-container>

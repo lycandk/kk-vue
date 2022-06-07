@@ -14,19 +14,19 @@
         <p slot="content" class="abstract" style="width: 300px">{{ item.abs }}</p>
         <el-card bodyStyle="padding:10px" class="cat"
                  shadow="hover" style="width: 135px;margin-bottom: 20px;height: 233px;float: left;margin-right: 15px">
-          <div class="cover" @click="editCat(item)">
+          <div class="cover">
             <img :src="item.cover" alt="猫咪图片">
           </div>
           <div class="info">
             <div class="nickname">
               <a href="">{{ item.nickname }}</a>
             </div>
-            <i class="el-icon-delete" @click="deleteCat(item.id)"></i>
+<!--            <i class="el-icon-delete" @click="deleteCat(item.id)"></i>-->
           </div>
           <div class="variety">{{ item.varieties.name}}</div>
         </el-card>
       </el-tooltip>
-      <edit-form @onSubmit="loadCats()" ref="edit"></edit-form>
+<!--      <edit-form @onSubmit="loadCats()" ref="edit"></edit-form>-->
     </el-row>
     <el-row>
       <el-pagination
@@ -40,13 +40,13 @@
 </template>
 
 <script>
-import EditForm from './EditForm'
+// import EditForm from './EditForm'
 import SearchBar from './SearchBar'
 
 export default {
   /**
-   * 此组件用于显示图书
-   * v-for 指令，之后可以使用动态渲染，这里我们用《三体》的内容作为一个默认值，先查看效果。
+   * 此组件用于显示猫咪
+   * v-for 指令，之后可以使用动态渲染
    * el-tooltip Element 提供的组件，用于展示鼠标悬停时的提示信息。参考 https://element.eleme.cn/2.0/#/zh-CN/component/tooltip
    * slot 插槽，及把标签中的内容插到父组件指定的地方，这里我们插入了 el-tooltip 的 content 中。上述文档中亦有描述。
    * 封面图像标签中，我们使用了 :src="item.cover" 这种写法，: 其实是 v-bind: 的缩写，用于绑定把标签的属性与 data 中的值绑定起来。
@@ -61,7 +61,8 @@ export default {
    * 构造增、删、改、查对应的请求
    */
   name: 'Cats',
-  components: {EditForm, SearchBar},
+  // components: {EditForm, SearchBar},
+  components: {SearchBar},
   data () {
     return {
       cats: [],
@@ -71,7 +72,7 @@ export default {
   },
   mounted: function () {
     /**
-     * 打开页面，默认查询出所有图书并显示（即页面的初始化）
+     * 打开页面，默认查询出所有猫咪并显示（即页面的初始化）
      * Vue 的 钩子函数 —— mounted。
      * mounted 即 “已挂载” ，所谓挂载，就是我们写的 Vue 代码被转换为 HTML 并替换相应的 DOM 这个过程，
      * 这个过程完事儿的时候，就会执行 mounted 里面的代码
@@ -107,49 +108,49 @@ export default {
           _this.currentPage = 1
         }
       })
-    },
-    deleteCat (id) {
-      this.$confirm('此操作将删除该猫咪信息，无法找回, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        this.$axios.post('/delete', {id: id}).then(resp => {
-          if (resp && resp.status === 200) {
-            this.loadCats()
-          }
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        })
-      })
-      // alert(id)
-    },
+    }
+    // deleteCat (id) {
+    //   this.$confirm('此操作将删除该猫咪信息，无法找回, 是否继续?', '提示', {
+    //     confirmButtonText: '确定',
+    //     cancelButtonText: '取消',
+    //     type: 'warning'
+    //   }).then(() => {
+    //     this.$axios.post('/delete', {id: id}).then(resp => {
+    //       if (resp && resp.status === 200) {
+    //         this.loadCats()
+    //       }
+    //     })
+    //   }).catch(() => {
+    //     this.$message({
+    //       type: 'info',
+    //       message: '已取消删除'
+    //     })
+    //   })
+    //   // alert(id)
+    // },
     /**
      * 负责弹出修改表单并渲染数据
      * @param item
      */
-    editCat (item) {
-      this.$refs.edit.dialogFormVisible = true
-      this.$refs.edit.form = {
-        id: item.id,
-        nickname: item.nickname,
-        cover: item.cover,
-        variety: item.variety,
-        color: item.color,
-        birthdate: item.birthdate,
-        scientificname: item.scientificname,
-        latinname: item.latinname,
-        placeoforigin: item.placeoforigin,
-        abs: item.abs,
-        varieties: {
-          id: item.varieties.id.toString(),
-          name: item.varieties.name
-        }
-      }
-    }
+    // editCat (item) {
+    //   this.$refs.edit.dialogFormVisible = true
+    //   this.$refs.edit.form = {
+    //     id: item.id,
+    //     nickname: item.nickname,
+    //     cover: item.cover,
+    //     variety: item.variety,
+    //     color: item.color,
+    //     birthdate: item.birthdate,
+    //     scientificname: item.scientificname,
+    //     latinname: item.latinname,
+    //     placeoforigin: item.placeoforigin,
+    //     abs: item.abs,
+    //     varieties: {
+    //       id: item.varieties.id.toString(),
+    //       name: item.varieties.name
+    //     }
+    //   }
+    // }
   }
 }
 </script>

@@ -5,6 +5,7 @@ import AppIndex from '../components/home/AppIndex'
 import Home from '../components/Home'
 import CatCafeIndex from '../components/catcafe/CatCafeIndex'
 import Register from '../components/Register'
+import AdminIndex from '../components/admin/AdminIndex'
 
 Vue.use(Router)
 // 为区分是否需要拦截,在需要拦截的路由中加一条元数据，设置一个 requireAuth 字段
@@ -51,6 +52,63 @@ export default new Router({
       path: '/register',
       name: 'Register',
       component: Register
+    },
+    {
+      path: '/admin',
+      name: 'Admin',
+      component: AdminIndex,
+      meta: {
+        requireAuth: true
+      }
+    }
+  ]
+})
+
+// 用于创建默认路由
+export const createRouter = routes => new Router({
+  mode: 'history',
+  routes: [
+    {
+      path: '/',
+      name: 'Default',
+      redirect: '/home',
+      component: Home
+    },
+    { path: '/home',
+      name: 'Home',
+      component: Home,
+      // home页面并不需要被访问
+      redirect: '/index',
+      children: [
+        {
+          path: '/index',
+          name: 'Index',
+          component: AppIndex
+        },
+        {
+          path: '/cats',
+          name: 'CatCafe',
+          component: CatCafeIndex
+        }
+      ]
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: Register
+    },
+    {
+      path: '/admin',
+      name: 'Admin',
+      component: AdminIndex,
+      meta: {
+        requireAuth: true
+      }
     }
   ]
 })

@@ -1,9 +1,9 @@
 <template>
   <el-card class="admin-header">
     <a href="/index">
-      <img src="../../assets/logo/logo2.png" alt="" width="55px" style="float: left;margin-top: -5px;">
+      <img src="../../assets/logo/logo2.png" alt="" width="70px" style="float: left;margin-top: -15px;margin-left: -15px">
     </a>
-    <span style="font-size: 32px;font-weight: bold;position:absolute;left: 100px">KittyKitty</span>
+    <span style="font-size: 32px;font-weight: bold;position:absolute;left: 77px">Kitty Kitty</span>
     <i class="el-icon-switch-button" v-on:click="logout" style="font-size: 40px;float: right"></i>
   </el-card>
 </template>
