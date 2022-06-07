@@ -18,6 +18,12 @@ export default new Router({
      * 这样配置其实是感受不到 /home 这个路径的存在的。之后再添加新的页面，可以直接在 children 中增添对应的内容。
      */
     {
+      path: '/',
+      name: 'Default',
+      redirect: '/home',
+      component: Home
+    },
+    {
       path: '/home',
       name: 'Home',
       component: Home,
@@ -27,26 +33,14 @@ export default new Router({
         {
           path: '/index',
           name: 'Index',
-          component: AppIndex,
-          meta: {
-            requireAuth: true
-          }
+          component: AppIndex
         },
         {
           path: '/cats',
           name: 'CatCafe',
-          component: CatCafeIndex,
-          meta: {
-            requireAuth: true
-          }
+          component: CatCafeIndex
         }
       ]
-    },
-    {
-      path: '/',
-      name: 'Default',
-      redirect: '/home',
-      component: Home
     },
     {
       path: '/login',
