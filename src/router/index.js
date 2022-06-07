@@ -27,18 +27,12 @@ export default new Router({
         {
           path: '/index',
           name: 'Index',
-          component: AppIndex,
-          meta: {
-            requireAuth: true
-          }
+          component: AppIndex
         },
         {
           path: '/cats',
           name: 'CatCafe',
-          component: CatCafeIndex,
-          meta: {
-            requireAuth: true
-          }
+          component: CatCafeIndex
         }
       ]
     },
