@@ -6,7 +6,7 @@
     <!--<el-row style="height: 100%;">-->
     <el-container>
       <el-aside style="height: 112%;margin-top: -80px;width: 250px">
-        <admin-menu></admin-menu>
+        <AdminMenu></AdminMenu>
       </el-aside>
       <el-main>
         <router-view></router-view>
