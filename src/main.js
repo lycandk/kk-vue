@@ -70,7 +70,7 @@ const initAdminMenu = (router, store) => {
   }
   axios.get('/menu').then(resp => {
     if (resp && resp.status === 200) {
-      const fmtRoutes = formatRoutes(resp.data)
+      const fmtRoutes = formatRoutes(resp.data.result)
       router.addRoutes(fmtRoutes)
       store.commit('initAdminMenu', fmtRoutes)
     }
@@ -110,7 +110,6 @@ const formatRoutes = (routes) => {
     }
     fmtRoutes.push(fmtRoute)
   })
-  console.log(fmtRoutes)
   return fmtRoutes
 }
 /* eslint-disable no-new */
