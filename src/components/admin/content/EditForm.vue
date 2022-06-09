@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <i class="el-icon-circle-plus-outline"  @click="dialogFormVisible = true"></i>
+  <div style="text-align: left">
+    <el-button class="add-button"  @click="dialogFormVisible = true">添加猫咪</el-button>
     <el-dialog
-      title="添加/修改猫咪信息"
+      title="添加猫咪信息"
       :visible.sync="dialogFormVisible"
       @close="clear">
       <el-form v-model="form" style="text-align: left" ref="dataForm">
@@ -148,9 +148,9 @@ export default {
 </script>
 
 <style scoped>
-.el-icon-circle-plus-outline {
-  margin: 50px 0 0 20px;
-  font-size: 100px;
+.add-button {
+  margin: 20px 10px 10px 25px;
+  font-size: 20px;
   float: left;
   cursor: pointer;
 }
