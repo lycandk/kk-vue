@@ -2,6 +2,7 @@
   <div>
     <el-row style="height: 840px;">
       <search-bar @onSearch="searchResult" ref="searchBar"></search-bar>
+      <view-switch class="switch"></view-switch>
       <el-tooltip v-for="item in cats.slice((currentPage - 1) *pagesize, currentPage*pagesize)" :key="item.id"
                   effect="dark"
                   placement="right">
@@ -42,6 +43,7 @@
 <script>
 // import EditForm from './EditForm'
 import SearchBar from './SearchBar'
+import ViewSwitch from './ViewSwitch'
 
 export default {
   /**
@@ -62,7 +64,7 @@ export default {
    */
   name: 'Cats',
   // components: {EditForm, SearchBar},
-  components: {SearchBar},
+  components: {SearchBar, ViewSwitch},
   data () {
     return {
       cats: [],
@@ -87,13 +89,12 @@ export default {
       const _this = this
       this.$axios.get('/cats').then(resp => {
         if (resp && resp.status === 200) {
-          _this.cats = resp.data
+          _this.cats = resp.data.result
         }
       })
     },
     handleCurrentChange: function (currentPage) {
       this.currentPage = currentPage
-      console.log(this.currentPage)
     },
     /**
      * 通过onSearch事件触发
@@ -104,7 +105,7 @@ export default {
       this.$axios.get('/search?keyword=' + this.$refs.searchBar.keyword, {
       }).then(resp => {
         if (resp && resp.status === 200) {
-          _this.cats = resp.data
+          _this.cats = resp.data.result
           _this.currentPage = 1
         }
       })
@@ -195,7 +196,7 @@ img {
 .switch {
   display: flex;
   position: absolute;
-  left: 780px;
+  left: 0px;
   top: 25px;
 }
 

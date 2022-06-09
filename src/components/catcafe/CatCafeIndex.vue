@@ -47,7 +47,7 @@ export default {
       const url = 'varieties/' + vid + '/cats'
       this.$axios.get(url).then(resp => {
         if (resp.status === 200) {
-          _this.$refs.catsArea.cats = resp.data
+          _this.$refs.catsArea.cats = resp.data.result
           _this.$refs.catsArea.currentPage = 1
         }
       })

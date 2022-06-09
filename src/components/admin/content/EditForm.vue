@@ -109,7 +109,7 @@ export default {
           name: ''
         }
       }
-      // 此处解决没有触发到ImgUpload中的clear方法，导致上传后关闭结果未被清空的问题
+      // 此处解决没有触发到ImgUpload中的clear方法，导致上传后关闭结果文件未被清空的问题
       this.$refs.imgUpload.clear()
     },
     /**
@@ -118,7 +118,7 @@ export default {
      */
     onSubmit () {
       this.$axios
-        .post('/cats', {
+        .post('/admin/content/cats', {
           id: this.form.id,
           nickname: this.form.nickname,
           cover: this.form.cover,

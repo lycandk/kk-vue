@@ -127,7 +127,7 @@ export default {
         type: 'warning'
       }).then(() => {
         this.$axios
-          .post('/admin/content/books/delete', {id: id}).then(resp => {
+          .post('/admin/content/cats/delete', {id: id}).then(resp => {
             if (resp && resp.data.code === 200) {
               this.loadCats()
             }
