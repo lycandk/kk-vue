@@ -32,7 +32,7 @@ router.beforeEach((to, from, next) => {
     })
   }
   if (to.meta.requireAuth) {
-    if (store.state.user) {
+    if (store.state.user.username) {
       // 访问每个页面前都向后端发送一个请求，目的是经由拦截器验证服务器端的登录状态
       axios.get('/authentication').then(response => {
         if (response.data) {
