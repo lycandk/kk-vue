@@ -9,6 +9,8 @@ import store from './store'
 import ElementUI from 'element-ui'
 // 引入CSS
 import 'element-ui/lib/theme-chalk/index.css'
+// 引入mavonEditor
+import mavonEditor from 'mavon-editor'
 // 设置反向代理，前端请求默认发送到 http://localhost:8443/api
 import axios from 'axios'
 axios.defaults.baseURL = 'http://localhost:8443/api'
@@ -18,6 +20,8 @@ Vue.prototype.$axios = axios
 Vue.config.productionTip = false
 // 使用ElementUI
 Vue.use(ElementUI)
+// 使用mavonEditor
+Vue.use(mavonEditor)
 
 // 使用 router.beforeEach()，意思是在访问每一个路由前调用。
 router.beforeEach((to, from, next) => {
