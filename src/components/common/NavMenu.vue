@@ -31,9 +31,9 @@ export default {
     return {
       navList: [
         {name: '/index', navItem: '猫咖'},
-        {name: '/note', navItem: '猫咪笔记'},
+        {name: '/blog', navItem: '猫咪笔记'},
         {name: '/cats', navItem: '猫咪们'},
-        {name: '/admin', navItem: '个人中心'}
+        {name: '/admin', navItem: '管理中心'}
       ]
     }
   },

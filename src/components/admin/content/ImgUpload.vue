@@ -2,6 +2,7 @@
   <el-upload class="img-upload"
              ref="upload"
              action="http://localhost:8443/api/admin/content/cats/covers"
+             with-credentials
              :on-preview="handlePreview"
              :on-remove="handleRemove"
              :before-remove="beforeRemove"

@@ -6,6 +6,9 @@ import Home from '../components/Home'
 import CatCafeIndex from '../components/catcafe/CatCafeIndex'
 import Register from '../components/Register'
 import AdminIndex from '../components/admin/AdminIndex'
+import ArticleEditor from '../components/admin/content/ArticleEditor'
+import Articles from '../components/blog/Articles'
+import ArticleDetails from '../components/blog/ArticleDetails'
 
 Vue.use(Router)
 // 为区分是否需要拦截,在需要拦截的路由中加一条元数据，设置一个 requireAuth 字段
@@ -40,6 +43,27 @@ export default new Router({
           path: '/cats',
           name: 'CatCafe',
           component: CatCafeIndex
+        },
+        {
+          // 文章列表页面
+          path: '/blog',
+          name: 'Blog',
+          component: Articles
+        },
+        {
+          // 文章详情页面
+          path: '/blog/article',
+          name: 'Article',
+          component: ArticleDetails
+        },
+        {
+          // 图书编辑器路由
+          path: '/admin/content/editor',
+          name: 'Editor',
+          component: ArticleEditor,
+          meta: {
+            requireAuth: true
+          }
         }
       ]
     },
@@ -89,6 +113,24 @@ export const createRouter = routes => new Router({
           path: '/cats',
           name: 'CatCafe',
           component: CatCafeIndex
+        },
+        {
+          path: '/blog',
+          name: 'Blog',
+          component: Articles
+        },
+        {
+          path: '/blog/article',
+          name: 'Article',
+          component: ArticleDetails
+        },
+        {
+          path: '/admin/content/editor',
+          name: 'Editor',
+          component: ArticleEditor,
+          meta: {
+            requireAuth: true
+          }
         }
       ]
     },

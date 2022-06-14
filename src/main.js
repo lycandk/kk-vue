@@ -11,6 +11,7 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 // 引入mavonEditor
 import mavonEditor from 'mavon-editor'
+import 'mavon-editor/dist/css/index.css'
 // 设置反向代理，前端请求默认发送到 http://localhost:8443/api
 import axios from 'axios'
 axios.defaults.baseURL = 'http://localhost:8443/api'
