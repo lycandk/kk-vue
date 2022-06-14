@@ -1,14 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from '../components/Login'
-import AppIndex from '../components/home/AppIndex'
 import Home from '../components/Home'
-import CatCafeIndex from '../components/catcafe/CatCafeIndex'
-import Register from '../components/Register'
-import AdminIndex from '../components/admin/AdminIndex'
-import ArticleEditor from '../components/admin/content/ArticleEditor'
-import Articles from '../components/blog/Articles'
-import ArticleDetails from '../components/blog/ArticleDetails'
 
 Vue.use(Router)
 // 为区分是否需要拦截,在需要拦截的路由中加一条元数据，设置一个 requireAuth 字段
@@ -35,32 +27,33 @@ export default new Router({
       redirect: '/index',
       children: [
         {
+          // 在路由被访问时才会引入组件
           path: '/index',
           name: 'Index',
-          component: AppIndex
+          component: () => import('../components/home/AppIndex')
         },
         {
           path: '/cats',
           name: 'CatCafe',
-          component: CatCafeIndex
+          component: () => import('../components/catcafe/CatCafeIndex')
         },
         {
           // 文章列表页面
           path: '/blog',
           name: 'Blog',
-          component: Articles
+          component: () => import('../components/blog/Articles')
         },
         {
           // 文章详情页面
           path: '/blog/article',
           name: 'Article',
-          component: ArticleDetails
+          component: () => import('../components/blog/ArticleDetails')
         },
         {
           // 图书编辑器路由
           path: '/admin/content/editor',
           name: 'Editor',
-          component: ArticleEditor,
+          component: () => import('../components/admin/content/ArticleEditor'),
           meta: {
             requireAuth: true
           }
@@ -70,17 +63,17 @@ export default new Router({
     {
       path: '/login',
       name: 'Login',
-      component: Login
+      component: () => import('../components/Login')
     },
     {
       path: '/register',
       name: 'Register',
-      component: Register
+      component: () => import('../components/Register')
     },
     {
       path: '/admin',
       name: 'Admin',
-      component: AdminIndex,
+      component: () => import('../components/admin/AdminIndex'),
       meta: {
         requireAuth: true
       }
@@ -107,27 +100,27 @@ export const createRouter = routes => new Router({
         {
           path: '/index',
           name: 'Index',
-          component: AppIndex
+          component: () => import('../components/home/AppIndex')
         },
         {
           path: '/cats',
           name: 'CatCafe',
-          component: CatCafeIndex
+          component: () => import('../components/catcafe/CatCafeIndex')
         },
         {
           path: '/blog',
           name: 'Blog',
-          component: Articles
+          component: () => import('../components/blog/Articles')
         },
         {
           path: '/blog/article',
           name: 'Article',
-          component: ArticleDetails
+          component: () => import('../components/blog/ArticleDetails')
         },
         {
           path: '/admin/content/editor',
           name: 'Editor',
-          component: ArticleEditor,
+          component: () => import('../components/admin/content/ArticleEditor'),
           meta: {
             requireAuth: true
           }
@@ -137,17 +130,17 @@ export const createRouter = routes => new Router({
     {
       path: '/login',
       name: 'Login',
-      component: Login
+      component: () => import('../components/Login')
     },
     {
       path: '/register',
       name: 'Register',
-      component: Register
+      component: () => import('../components/Register')
     },
     {
       path: '/admin',
       name: 'Admin',
-      component: AdminIndex,
+      component: () => import('../components/admin/AdminIndex'),
       meta: {
         requireAuth: true
       }
