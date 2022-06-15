@@ -41,8 +41,13 @@ router.beforeEach((to, from, next) => {
       // 访问每个页面前都向后端发送一个请求，目的是经由拦截器验证服务器端的登录状态
       // 如果前端没有登录信息则直接拦截，如果有则判断后端是否正常登录（防止构造参数绕过）
       axios.get('/authentication').then(response => {
-        if (response) {
+        if (response.data.result) {
           next()
+        } else {
+          next({
+            path: 'login',
+            query: {redirect: to.fullPath}
+          })
         }
       })
     } else {
