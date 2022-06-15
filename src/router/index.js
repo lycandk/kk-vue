@@ -3,6 +3,28 @@ import Router from 'vue-router'
 import Home from '../components/Home'
 
 Vue.use(Router)
+
+// 解决报错
+const originalPush = Router.prototype.push
+const originalReplace = Router.prototype.replace
+// push
+Router.prototype.push = function push (location, onResolve, onReject) {
+  console.log(onReject + onResolve)
+  // if (onResolve || onReject) return originalPush.call(this, location, onResolve, onReject)
+  return originalPush.call(this, location).catch(err => {
+    console.log(err)
+    originalPush.call(this, location, onResolve, onReject)
+  })
+}
+// replace
+Router.prototype.replace = function push (location, onResolve, onReject) {
+  console.log(onReject + onResolve)
+  // if (onResolve || onReject) return originalReplace.call(this, location, onResolve, onReject)
+  return originalReplace.call(this, location).catch(err => {
+    console.log(err)
+    originalPush.call(this, location, onResolve, onReject)
+  })
+}
 // 为区分是否需要拦截,在需要拦截的路由中加一条元数据，设置一个 requireAuth 字段
 export default new Router({
   mode: 'history',
@@ -76,7 +98,17 @@ export default new Router({
       component: () => import('../components/admin/AdminIndex'),
       meta: {
         requireAuth: true
-      }
+      },
+      children: [
+        {
+          path: '/admin/dashboard',
+          name: 'Dashboard',
+          component: () => import('../components/admin/dashboard/admin/index'),
+          meta: {
+            requireAuth: true
+          }
+        }
+      ]
     }
   ]
 })

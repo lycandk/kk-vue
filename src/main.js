@@ -27,28 +27,22 @@ Vue.use(mavonEditor)
 // 使用 router.beforeEach()，意思是在访问每一个路由前调用。
 router.beforeEach((to, from, next) => {
   // 在用户已登录且访问以 /admin 开头的路径时请求菜单信息
-  if (store.state.user.username && to.path.startsWith('/admin')) {
+  if (store.state.username && to.path.startsWith('/admin')) {
     initAdminMenu(router, store)
   }
   // 已登录状态下访问 login 页面直接跳转到后台首页
-  if (store.state.user.username && to.path.startsWith('/login')) {
+  if (store.state.username && to.path.startsWith('/login')) {
     next({
       name: 'Dashboard'
     })
   }
   if (to.meta.requireAuth) {
-    if (store.state.user.username) {
+    if (store.state.username) {
       // 访问每个页面前都向后端发送一个请求，目的是经由拦截器验证服务器端的登录状态
+      // 如果前端没有登录信息则直接拦截，如果有则判断后端是否正常登录（防止构造参数绕过）
       axios.get('/authentication').then(response => {
-        if (response.data) {
+        if (response) {
           next()
-        } else {
-          next({
-            path: 'login',
-            query: {
-              redirect: to.fullPath
-            }
-          })
         }
       })
     } else {

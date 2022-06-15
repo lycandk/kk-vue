@@ -8,22 +8,20 @@ Vue.use(Vuex)
 // 为了方便日后的扩展（权限认证等），我们使用一个用户对象而不是仅仅使用一个布尔变量。同时，设置一个方法，触发这个方法时可以为我们的用户对象赋值。
 export default new Vuex.Store({
   state: {
-    user: {
-      username: window.localStorage.getItem('user' || '[]') == null ? '' : JSON.parse(window.localStorage.getItem('user' || '[]')).username
-    },
+    username: window.localStorage.getItem('username') == null ? '' : JSON.parse(window.localStorage.getItem('username' || '[]')),
     adminMenus: []
   },
   mutations: {
     initAdminMenu (state, menus) {
       state.adminMenus = menus
     },
-    login (state, user) {
-      state.user = user
-      window.localStorage.setItem('user', JSON.stringify(user))
+    login (state, data) {
+      state.username = data
+      window.localStorage.setItem('username', JSON.stringify(data))
     },
     logout (state) {
-      state.user = []
-      window.localStorage.removeItem('user')
+      state.username = ''
+      window.localStorage.removeItem('username')
       state.adminMenus = []
     }
   }

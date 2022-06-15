@@ -49,12 +49,14 @@ export default {
         .then(successResponse => {
           if (successResponse.data.code === 200) {
             // var data = this.loginForm
-            this.$alert('登录成功', '提示', {
+            const data = successResponse.data.result
+            _this.$store.commit('login', data)
+            const path = _this.$route.query.redirect
+            console.log(path)
+            _this.$router.replace({path: path === '/' || path === undefined ? '/admin/dashboard' : path})
+            _this.$alert('登录成功', '提示', {
               confirmButtonText: '确定'
             })
-            _this.$store.commit('login', _this.loginForm)
-            const path = this.$route.query.redirect
-            this.$router.replace({path: path === '/' || path === undefined ? '/index' : path})
           } else {
             this.$alert(successResponse.data.message, '提示', {
               confirmButtonText: '确定'
