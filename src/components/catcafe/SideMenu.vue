@@ -67,7 +67,7 @@ export default {
 <style scoped>
 .varieties {
   /**
-  在LibraryIndex.vue里面用的是<el-aside>是不用设置位置属性会自动显示在边框位置的。
+  在CatCafeIndex.vue里面用的是<el-aside>是不用设置位置属性会自动显示在边框位置的。
   因此以下css注释掉
    */
   /*position: fixed;*/

@@ -2,7 +2,7 @@
   <el-container>
     <el-aside style="width: 200px;margin-top: 20px">
       <switch></switch>
-      <SideMenu @indexSelect="listByVariety" ref="sideMenu"></SideMenu>
+      <SideMenu @indexSelect="listByVariety" ref="sideMenu" id="side-menu"></SideMenu>
     </el-aside>
     <el-main>
       <cats class="cats-area" ref="catsArea"></cats>
@@ -60,7 +60,13 @@ export default {
 <style scoped>
 .cats-area {
   width: 100%;
-  margin-left: auto;
+  margin-left:2%;
   margin-right: auto;
 }
+
+#side-menu {
+  position: fixed;
+  margin-left: 50%;
+  left: -680px;
+  top: 100px;}
 </style>
