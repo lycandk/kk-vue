@@ -33,7 +33,7 @@ export default {
         {name: '/index', navItem: '猫咖'},
         {name: '/blog', navItem: '猫咪笔记'},
         {name: '/cats', navItem: '猫咪们'},
-        {name: '/login', navItem: '管理中心'}
+        {name: '/admin', navItem: '管理中心'}
       ]
     }
   },
