@@ -1,7 +1,7 @@
 <template>
   <el-card class="box-card">
     <div slot="header" class="clearfix">
-      <span style="font-weight: bold;font-size: 20px">猫咪大世界</span>
+      <span style="font-weight: bold;font-size: 20px">猫咪大事件</span>
       <!--<el-button style="float: right; padding: 3px 0" type="text">修改</el-button>-->
     </div>
     <div class="block">
